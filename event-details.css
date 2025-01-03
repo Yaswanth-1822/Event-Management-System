@@ -1,0 +1,88 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+header {
+  background-color: #004080;
+  padding: 10px 0;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.event-details-container {
+  display: flex;
+  padding: 20px;
+}
+
+.event-image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.event-image-container img {
+  height: 50vh; /* Reduced size to 50% of the viewport height */
+  width: auto;
+  border-radius: 10px;
+}
+
+.event-info {
+  flex: 2;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.countdown {
+  font-size: 18px;
+  color: #ff0000;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 16px;
+  color: #333;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color:  #004080;
+  color: white;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+.register-btn{
+  background-color:  #2a8aea;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+.register-btn:hover{
+  background-color: #004080;
+}

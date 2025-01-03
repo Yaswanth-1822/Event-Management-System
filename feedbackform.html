@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Feedback</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./feedback.css">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Event Selection Section */
+        .event-selection {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .event-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            gap: 10px; /* Space between buttons */
+        }
+
+        .event-list li {
+            margin: 0;
+        }
+
+        .feedback-event-button {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #3b82f6;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            text-align: center;
+            min-width: 150px; /* Ensure buttons have a minimum width */
+            display: inline-block;
+        }
+
+        .feedback-event-button:hover {
+            background-color: #2563eb;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <!-- Navigation Bar -->
+    <header>
+        <div class="header">
+            <div class="logo-container">
+                <img src="./mvgrlogo1.png" alt="Logo">
+            </div>
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="./test.html">Home</a></li>
+                    <li><a href="./about.html">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Event Selection Section -->
+    <main>
+        <section class="event-selection">
+            <h1>Select an Event for Feedback</h1>
+            <ul class="event-list">
+                <!-- Event buttons will be populated here -->
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content" style="color: white;">
+            <p>&copy; 2024 College Event Management System. All rights reserved.</p>
+            <p>&copy; SRP TEAM-17 
+                <p>P.YASWANTH KUMAR-22331A4248(TL)</p>
+                <p>D.ANUSHA-22331A4211</p>
+                <P>P.RISHENDRA VARMA-22331A4247</P>
+                <P>J.BRUNDA SANJANA-22331A4221</P>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Link to external JavaScript -->
+    <script src="scripts.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const eventList = document.querySelector('.event-list');
+    const username = localStorage.getItem('username'); // Get logged-in username from localStorage
+
+    // Fetch completed events from the backend
+    fetch('/api/completed-events')
+        .then(response => response.json())
+        .then(events => {
+            // Clear existing buttons if any
+            eventList.innerHTML = ''
+
+            // Loop through completed events and create buttons
+            events.forEach(event => {
+                const button = document.createElement('li');
+                button.innerHTML = `<button class="feedback-event-button" data-event-id="${event._id}">${event.name}</button>`;
+                eventList.appendChild(button);
+            });
+            // Add click event listener for each button
+            document.querySelectorAll('.feedback-event-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const eventId = button.getAttribute('data-event-id');
+                    checkUserParticipation(username, eventId); // Call function to check user participation
+                });
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching completed events:', error);
+            eventList.innerHTML = '<li>No completed events found.</li>';
+        });
+});
+
+// Function to check if the user participated in the event
+function checkUserParticipation(username, eventId) {
+    fetch(`/api/check-participation?username=${username}&eventId=${eventId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // If user participated, redirect to feedback form
+                window.location.href = `/feedback-qns.html?eventId=${eventId}`;
+            } else {
+                alert('You did not participate in this event.');
+            }
+        })
+        .catch(error => {
+            console.error('Error checking participation:', error);
+        });
+}
+    </script>
+</body>
+
+</html>

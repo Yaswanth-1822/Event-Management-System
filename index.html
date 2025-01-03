@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible"IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Signup</h2>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <span id="emailError" class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="password">New Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Re-enter Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <span id="passwordError" class="error-message"></span>
+            </div>
+            <div class="form-group otp-group">
+                <label for="otp">OTP:</label>
+                <input type="text" id="otp" name="otp">
+                <button type="button" onclick="sendOTP()">Send OTP</button>
+                <span id="otpError" class="error-message"></span>
+            </div>
+            <button type="submit">Signup</button>
+        </form>
+        <div id="message"></div>
+    </div>
+    <script src="scripts.js" defer></script>
+</body>
+</html>

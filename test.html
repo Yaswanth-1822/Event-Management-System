@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Event Management System</title>
+    <style>
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+
+    </style>
+    <link rel="stylesheet" href="./test.css">
+    <link rel="stylesheet" href="./testing.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <div class="header">
+            <div class="logo-container">
+                <img src="/mvgrlogo1.png" alt="Logo">
+            </div>
+            <nav class="navbar">
+                <div class="navbar-left">
+                    <ul class="nav-links">
+                        <li><a href="#bothevents">Completed Events</a></li>
+                        <li><a href="#bothevents">Upcoming Events</a></li>
+                        <li><a href="./eventcalender.html">Event Calendar</a></li>
+        
+                        <li><a href="./feedbackform.html">Feedback</a></li>
+                        <li><a href="./about.html">About</a></li>
+                    </ul>
+                </div>
+            
+                <!-- Right Side: Login and Signup Buttons -->
+                <div class="navbar-right" id="navbar-right">
+                    <button class="btn login-btn" onclick="location.href='/login.html'">Login</button>
+                    <button class="btn signup-btn" style="margin-right: 20px;" onclick="location.href='/index.html'">Signup</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Body Content -->
+    <main>
+<div class="swiper-container">
+    <div class="swiper-wrapper" id="event-slider">
+        <!-- Event cards will be injected here -->
+    </div>
+
+    <!-- Swiper Pagination -->
+    <div class="swiper-pagination"></div>
+
+    <!-- Navigation buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    </div>
+        
+    <!-- Upcoming and Completed Events Sections -->
+    <div class="bothevents" id="bothevents">
+        <div class="upcomingevents">
+            <h2 class="section-heading">Upcoming Events</h2>
+            <!-- Upcoming events will be dynamically loaded here -->
+        </div>
+        <div class="completedevents">
+            <h2 class="section-heading">Completed Events</h2>
+            <!-- Completed events will be dynamically loaded here -->
+        </div>
+    </div>
+    <section class="event-info">
+        <h2>Hackathons</h2>
+        <p>Hackathons are intense, collaborative 
+            coding events where participants, often in teams, work to create software or 
+            hardware solutions within a short period, typically 24 to 48 hours. These events provide an excellent platform
+             for students to bring innovative ideas to life, solve real-world problems, and gain hands-on experience with new technologies. Hackathons also foster networking opportunities, allowing participants to meet like-minded peers, mentors, and industry professionals</p>
+    </section>
+    <section class="event-info">
+        <h2>Coding Competitions</h2>
+        <p>Coding Competitions challenge students to solve complex algorithmic problems in a timed environment. These contests help 
+            sharpen problem-solving skills, logic, and coding efficiency. Participants compete individually or in teams, using programming languages like C++, Python, or Java. Coding competitions often emphasize critical thinking, optimization, and performance under pressure, making them a great avenue for students
+             to showcase their technical prowess and compete for prizes or recognition.</p>
+    </section>
+    <section class="event-info">
+        <h2>Workshops</h2>
+        <p>Workshops offer students the chance to dive deep into specific technologies or skills through
+             hands-on learning sessions. These are typically led by industry experts or experienced professionals, focusing on topics like web development, artificial intelligence, machine learning, blockchain, and more. Workshops provide valuable practical 
+            experience and often include guided projects that students can add to their portfolios.</p>
+    </section>
+        <!-- Section for Descriptions -->
+        <section class="event-info">
+            <h2>About the Event Management System</h2>
+            <p>This platform helps students, faculty, and event organizers manage and participate in college events seamlessly.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 College Event Management System. All rights reserved.</p>
+            <p>&copy; SRP TEAM-17 
+                <p>P.YASWANTH KUMAR-22331A4248(TL)</p>
+                <p>D.ANUSHA-22331A4211</p>
+                <P>P.RISHENDRA VARMA-22331A4247</P>
+                <P>J.BRUNDA SANJANA-22331A4221</P>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="./script.js"></script>
+    <script>
+ document.addEventListener('DOMContentLoaded', () => {
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  const storedPhoto = localStorage.getItem('profilePhoto') || './profile1.jpeg'; // Load stored photo or default
+  const username = localStorage.getItem('username') || 'User'; // Load the username from localStorage
+
+  if (isLoggedIn) {
+      const navbarRight = document.getElementById('navbar-right');
+      navbarRight.innerHTML = `
+          <span>Welcome, ${username}</span>
+          <img src="${storedPhoto}" alt="profile" class="profile-img" onclick="location.href='./profile.html'">
+          
+          <button class="btn logout-btn" onclick="logout()">Logout</button>
+      `;
+  }
+  fetch('/api/events')
+            .then(response => response.json())
+            .then(events => {
+                const upcomingEventsList = document.querySelector('.upcomingevents');
+                const completedEventsList = document.querySelector('.completedevents');
+                const currentDate = new Date();
+
+                events.forEach(event => {
+                    const eventDate = new Date(event.date);
+                    const eventItem = `
+                        <div class="image1container">
+                            <img src="${event.image}" alt="${event.name}" class="evimage">
+                            <div class="name">${event.name}</div>
+                            <div class="des">${event.description}</div>
+                            <button class="explore" onclick="location.href='/event-details.html?id=${event._id}'">Explore</button>
+                        </div>
+                    `;
+
+                    if (eventDate > currentDate) {
+                        upcomingEventsList.innerHTML += eventItem; // Upcoming Events
+                    } else {
+                        completedEventsList.innerHTML += eventItem; // Completed Events
+                    }
+                });
+            });
+});
+
+
+         // Logout function to clear localStorage
+         function logout() {
+            localStorage.clear();
+            window.location.href = '/test.html';
+        }
+
+           
+    </script>
+   
+</body>
+</html>

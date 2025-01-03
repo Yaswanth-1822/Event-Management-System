@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Details</title>
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="./event-details.css">
+  <style>
+    .user-auth {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  
+}
+
+.user-auth img.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="./test.html">Home</a></li>
+        
+        <li><a href="./about.html">About</a></li>
+      </ul>
+      <div class="user-auth">
+        <!-- User profile or Login/Signup buttons based on login status -->
+        <span id="auth-links"></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Event Details Section -->
+  <div class="event-details-container">
+    <div class="event-image-container">
+      <img id="event-image" alt="Event Image">
+    </div>
+
+    <div class="event-info">
+      <h1 id="event-name"></h1>
+
+      <!-- Countdown Timer -->
+      <div id="countdown" class="countdown">
+        <span id="days"></span> Days : 
+        <span id="hours"></span> Hours : 
+        <span id="minutes"></span> Minutes : 
+        <span id="seconds"></span> Seconds
+      </div>
+
+      <!-- Event Description -->
+      <p id="event-description"></p>
+
+      <div id="additional-description">
+        <h2>Additional Information</h2>
+        <p id="additional-info"></p>
+      </div>
+
+      <!-- Register Button -->
+      <button id="register-btn" class="register-btn" style="display:none;">Register</button>
+    </div>
+  </div>
+
+  <!-- Footer (like in test.html) -->
+  <footer>
+    <div class="footer-content" >
+        <p  style="color: white;">&copy; 2024 College Event Management System. All rights reserved.</p>
+        <p  style="color: white;">&copy; SRP TEAM-17 
+            <p  style="color: white;">P.YASWANTH KUMAR-22331A4248(TL)</p>
+            <p style="color: white;">D.ANUSHA-22331A4211</p>
+            <P style="color: white;">P.RISHENDRA VARMA-22331A4247</P>
+            <P style="color: white;">J.BRUNDA SANJANA-22331A4221</P>
+        </p>
+    </div>
+</footer>
+
+  <script src="event-details.js"></script>
+</body>
+</html>

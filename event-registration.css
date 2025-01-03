@@ -1,0 +1,26 @@
+#registration-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+   
+}
+.registration-container {
+    width: 300px;
+    margin: 100px auto;
+    padding: 40px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.btn{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #2a8aea;
+    color: white;
+    cursor: pointer;
+    border-radius:10px;
+}
+.btn:hover{
+    background-color: #004080;
+}

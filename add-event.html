@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Event</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Add a New Event</h1>
+    </header>
+
+    <main>
+        <form id="eventForm">
+            <label for="name">Event Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="date">Event Date (YYYY-MM-DD):</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="description">Event Description:</label>
+            <textarea id="description" name="description" required></textarea>
+
+            <label for="image">Event Image URL:</label>
+            <input type="text" id="image" name="image" required>
+
+            <button type="submit">Add Event</button>
+        </form>
+
+        <p id="statusMessage"></p>
+    </main>
+
+    <script>
+        // Handle form submission
+        document.getElementById('eventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const date = document.getElementById('date').value;
+            const description = document.getElementById('description').value;
+            const image = document.getElementById('image').value;
+
+            const eventData = {
+                name: name,
+                date: date,
+                description: description,
+                image: image
+            };
+
+            fetch('/api/events', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(eventData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('statusMessage').innerText = 'Event added successfully!';
+                document.getElementById('eventForm').reset(); // Clear form
+            })
+            .catch(error => {
+                document.getElementById('statusMessage').innerText = 'Error adding event.';
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
